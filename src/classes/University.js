@@ -88,4 +88,24 @@ export class University {
             console.log((i+1) + ") " + this.students[i].getFullName());
         }
     }
+
+    returnProperties(obj) {
+        return Object.values(obj);
+    }
+
+    outputToFile(filename, arr, fs) {
+        for (const el of arr) {
+            const property = this.returnProperties(el);
+            //console.log(typeof property);
+            if (!Util.isObject(property)){
+                console.log("Found object within an object");
+                for (const p of property) {
+                    fs.appendFileSync(`${filename}.txt`,  `${p}\n`);
+                }
+            } else {
+                //console.log(property);
+                fs.appendFileSync(`${filename}.txt`, `${property}\n`);
+            }
+        }
+    }
 }

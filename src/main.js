@@ -73,8 +73,8 @@ const app = {
             const student = this.getObject(stu_first_name, stu_last_name, students, "Student");
             const target_course = Util.getCourse(course_name_to_add, courses);
             target_course.enrollStudent(student);
-            console.log(target_course);
-            console.log(student.getEnrolledCourses())
+            //console.log(target_course);
+            //console.log(student.getEnrolledCourses())
         }
     },
 
@@ -125,6 +125,11 @@ const app = {
 }
 
 app.init();
+
+byu.outputToFile("data/univ_instructors", instructors, fs);
+byu.outputToFile("data/univ_students", students, fs);
+byu.outputToFile("data/univ_courses", courses, fs);
+byu.outputToFile("data/univ_departments", departments, fs);
 
 //byu.printAll();
 
