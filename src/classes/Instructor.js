@@ -25,4 +25,8 @@ export class Instructor extends User {
     addClassTeaching(classObj) {
         this.courses_teaching.push(classObj);
     }
+
+    printInstructor() {
+        console.log(this.getFullName());
+    }
 }

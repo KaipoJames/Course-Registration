@@ -29,4 +29,8 @@ export class Student extends User {
         console.log(this.id);
     }
 
+    printStudent() {
+        console.log(this.getFullName());
+    }
+
 }

@@ -54,4 +54,12 @@ export class Course {
         }
     }
 
+    printCourse() {
+        console.log(this.course_name + " " + this.course_level);
+    }
+
+    getCourse() {
+        return this.course_name + " " + this.course_level;
+    }
+
 }

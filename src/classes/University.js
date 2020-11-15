@@ -1,4 +1,5 @@
 import { functions as Util } from "../functions.js";
+import { Department } from "./Department.js";
 
 export class University {
     #id = Util.generateUniversityID();
@@ -15,6 +16,13 @@ export class University {
         return this.#id;
     }
 
+    addDepartments(array) {
+        for (var a of array) {
+            a = new Department(a);
+            this.departments.push(a);
+        }
+    }
+
     addInstructor(instructor) {
         this.instructors.push(instructor);
     }
@@ -26,5 +34,49 @@ export class University {
     }
     addCourse(course) {
         this.courses.push(course);
+    }
+
+    getInstructors() {
+        return this.instructors;
+    }
+    getDepartments() {
+        return this.departments;
+    }
+    getStudents() {
+        return this.students;
+    }
+    getCourses() {
+        return this.courses;
+    }
+
+    printAll() {
+        this.printCourses();
+        this.printDepartments();
+        this.printInstructors();
+        this.printStudents();
+    }
+    printCourses() {
+        console.log("\nCOURSES OFFERED: ");
+        for (var i = 0; i < this.courses.length; i++) {
+            console.log(i + ") " + this.courses[i].getCourse());
+        }
+    }
+    printDepartments() {
+        console.log("\nUNIVERSITY DEPARTMENTS: ");
+        for (var i = 0; i < this.departments.length; i++) {
+            console.log(i + ") " + this.departments[i].getDepartment());
+        }
+    }
+    printInstructors() {
+        console.log("\nUNIVERSITY INSTRUCTORS: ");
+        for (var i = 0; i < this.instructors.length; i++) {
+            console.log(i + ") " + this.instructors[i].getFullName());
+        }
+    }
+    printStudents() {
+        console.log("\nUNIVERSITY STUDENTS: ");
+        for (var i = 0; i < this.students.length; i++) {
+            console.log(i + ") " + this.students[i].getFullName());
+        }
     }
 }
