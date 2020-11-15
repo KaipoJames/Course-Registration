@@ -11,6 +11,20 @@ export class Student extends User {
         this.completed_credits = 0;
     }
 
+    addCredits(int) {
+        this.current_credits += int;
+    }
+    deleteCredits(int){
+        this.current_credits -= int;
+    }
+    resetCurrentCredits() {
+        this.current_credits = 0;
+    }
+
+    addCourse(course) {
+        this.enrolled_courses.push(course);
+    }
+
     getStudentID() {
         return this.id;
     }

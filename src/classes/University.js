@@ -58,25 +58,25 @@ export class University {
     printCourses() {
         console.log("\nCOURSES OFFERED: ");
         for (var i = 0; i < this.courses.length; i++) {
-            console.log(i + ") " + this.courses[i].getCourse());
+            console.log((i+1) + ") " + this.courses[i].getCourse());
         }
     }
     printDepartments() {
         console.log("\nUNIVERSITY DEPARTMENTS: ");
         for (var i = 0; i < this.departments.length; i++) {
-            console.log(i + ") " + this.departments[i].getDepartment());
+            console.log((i+1) + ") " + this.departments[i].getDepartment());
         }
     }
     printInstructors() {
         console.log("\nUNIVERSITY INSTRUCTORS: ");
         for (var i = 0; i < this.instructors.length; i++) {
-            console.log(i + ") " + this.instructors[i].getFullName());
+            console.log((i+1) + ") " + this.instructors[i].getFullName());
         }
     }
     printStudents() {
         console.log("\nUNIVERSITY STUDENTS: ");
         for (var i = 0; i < this.students.length; i++) {
-            console.log(i + ") " + this.students[i].getFullName());
+            console.log((i+1) + ") " + this.students[i].getFullName());
         }
     }
 }

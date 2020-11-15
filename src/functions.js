@@ -88,13 +88,40 @@ export const functions = {
                     + current_date.getFullYear();
         return date;
       },
-      getTime() {
+    getTime() {
         var current_time = new Date();
         //prettier-ignore
         var time = current_time.getHours() + ":"
                 + current_time.getMinutes() + ":"
                 + current_time.getSeconds();
         return time;
-      },
+    },
+
+    containsObject(obj, list) {
+        for (let i = 0; i < list.length; i++) {
+            if (list[i] == obj) {
+                return true;
+            }
+        }
+        return false;
+    },
+
+    getObject(obj, list) {
+        for(let i = 0; i < list.length; i++) {
+            if (list[i] == obj) {
+                return list[i];
+            }
+        }
+        return false;
+    },
+
+    getCourse(obj, list) {
+        for(let i = 0; i < list.length; i++) {
+            if (list[i].course_name == obj) {
+                return list[i];
+            }
+        }
+        return false;
+    },
 
 }

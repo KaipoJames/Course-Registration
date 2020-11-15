@@ -1,11 +1,12 @@
 import { functions as Util } from "../functions.js";
+import { Student} from "./Student.js";
 
 export class Course {
 
     constructor(name, level, credits, department, instructor) {
         this.course_name = name;
         this.course_level = level;
-        this.course_credits = credits;
+        this.course_credits = Number(credits);
         this.course_id = Util.generateCourseID();
         this.course_department = department;
         this.course_instructor = instructor;
@@ -48,16 +49,25 @@ export class Course {
     }
 
     enrollStudent(studentObj) {
-        if (this.getEnrolledStudents().length >= this.getEnrollmentLimit()) {
-            console.log("Class is Full.")
-        } else {
-            if (this.enrolled_students) {
-                this.enrolled_students.push(studentObj);
+        if (this.enrolled_students) {
+            if (this.getEnrolledStudents().length >= this.getEnrollmentLimit()) {
+                console.log("Class is Full.")
             } else {
-                this.enrolled_students = [];
-                this.enrolled_students.push(studentObj);
+                if (Util.containsObject(studentObj, this.enrolled_students) == true) {
+                    console.log("Unable To Add. Student is already registered in this class");
+                } else {
+                    this.enrolled_students.push(studentObj);
+                    studentObj.addCourse(this);
+                    studentObj.addCredits(this.course_credits);
+                } 
             }
+        } else {
+            this.enrolled_students = [];
+            this.enrolled_students.push(studentObj);
+            studentObj.addCourse(this);
+            studentObj.addCredits(this.course_credits);
         }
+
     }
     removeStudent(studentObj) {
         if (this.enrolled_students) {

@@ -3,6 +3,7 @@ import { University } from "./classes/University.js";
 import { Instructor } from "./classes/Instructor.js";
 import { Course } from "./classes/Course.js";
 import { Student } from "./classes/Student.js";
+import { functions as Util } from "./functions.js";
 
 const departmentNames = ["Art", "Math", "Music", "History", "Hawaiian", "Computer-Science", "Science", "Business"];
 const byu = new University("BYU");
@@ -26,12 +27,12 @@ const app = {
     main() {
         this.commandLineInput();
         this.addCourses();
+        this.enrollStudent();
     },
 
     addCourses() {
-        var filename = process.argv[2];
-        console.log(filename);
-        var str = fs.readFileSync(filename, 'utf8');
+        var courses_file = process.argv[2];
+        var str = fs.readFileSync(courses_file, 'utf8');
         // Split each line into one array
         const arr = str.toString().replace(/\r\n/g,'\n').split('\n');
         for (let i = 0; i < arr.length; i++) {
@@ -43,31 +44,44 @@ const app = {
             const ins_first_name = line[4];
             const ins_last_name = line[5];
             
-            const instructor = this.getInstructor(ins_first_name, ins_last_name);
+            const instructor = this.getObject(ins_first_name, ins_last_name, instructors, "Instructor");
             const course = new Course(name, level, credits, department, instructor);
             byu.addCourse(course);
             instructor.addClassTeaching(course);
             
         }
-        console.log("length: " + instructors.length);
-        for (const instructor of instructors) {
-            console.log("Instructor: " + instructor.getFullName());
-            console.log(instructor.getCoursesTeaching());
+        // console.log("length: " + instructors.length);
+        // for (const instructor of instructors) {
+        //     console.log("Instructor: " + instructor.getFullName());
+        //     console.log(instructor.getCoursesTeaching());
+        // }
+    },
+
+    enrollStudent() {
+        var student_file = process.argv[3];
+        var str = fs.readFileSync(student_file, 'utf8');
+        const arr = str.toString().replace(/\r\n/g,'\n').split('\n');
+        console.log(arr);
+        for (let i = 0; i < arr.length; i++) {
+            const div = arr[i].split(" ");
+            const stu_first_name = div[0];
+            const stu_last_name = div[1];
+            const course_name_to_add = div[2];
+            const course_level = div[3];
+
+            const student = this.getObject(stu_first_name, stu_last_name, students, "Student");
+            const target_course = Util.getCourse(course_name_to_add, courses);
+            target_course.enrollStudent(student);
+            console.log(target_course);
+            console.log(student.getEnrolledCourses())
         }
     },
 
-    CoursesAndInstructors() {
-        const instructor = this.getInstructor(ins_first_name, ins_last_name);
-        const course = new Course(name, level, credits, department, instructor);
-        courses.push(course);
-        instructor.addClassTeaching(course);
-    },
-
-    instructorExists(fullname) {
-        if (instructors.length == 0) {
+    objectExists(fullname, array) {
+        if (array.length == 0) {
             return false;
         } else {
-            var result = instructors.find(obj => {
+            var result = array.find(obj => {
                 return obj.getFullName() === fullname;
               })
             if (result) {
@@ -77,29 +91,41 @@ const app = {
             }
         }
     },
-    locateInstructor(fullname) {
-        for (const instructor of instructors) {
-            if (fullname == instructor.getFullName()) {
-                return instructor;
+    locateObject(fullname, array) {
+        for (const user of array) {
+            if (fullname == user.getFullName()) {
+                return user;
             } 
         }
     },
-    getInstructor(ins_first_name, ins_last_name) {
+    getObject(ins_first_name, ins_last_name, array, type) {
         const ins_full_name = ins_first_name + " " + ins_last_name;
-        if (this.instructorExists(ins_full_name) == false) {
-            const instructor = new Instructor(ins_first_name, ins_last_name);
-            instructors.push(instructor);
-            return instructor;
-        } else {
-            const instructor = this.locateInstructor(ins_full_name);
-            return instructor;
+        if (type == "Instructor") {
+            if (this.objectExists(ins_full_name, instructors) == false) {
+                const instructor = new Instructor(ins_first_name, ins_last_name);
+                array.push(instructor);
+                return instructor;
+            } else {
+                const instructor = this.locateObject(ins_full_name, array);
+                return instructor;
+            }
+        } else if (type == "Student") {
+            if (this.objectExists(ins_full_name, instructors) == false) {
+                const student = new Student(ins_first_name, ins_last_name);
+                array.push(student);
+                return student;
+            } else {
+                const student = this.locateObject(ins_full_name, array);
+                return student;
+            }
         }
     },
+
 }
 
 app.init();
 
-byu.printAll();
+//byu.printAll();
 
 
 
