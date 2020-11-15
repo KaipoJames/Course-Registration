@@ -22,6 +22,15 @@ export class University {
             this.departments.push(a);
         }
     }
+    addToDepartment(department, obj, specifier) {
+        if (specifier == "course") {
+            department.addCourse(obj);
+        } else if (specifier == "instructor") {
+            department.addInstructor(obj);
+        } else {
+            "Unable to add obj to Department."
+        }
+    }
 
     addInstructor(instructor) {
         this.instructors.push(instructor);

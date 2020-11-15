@@ -1,5 +1,6 @@
 import fs from 'fs'
 import { University } from "./classes/University.js";
+import { Department } from "./classes/Department.js";
 import { Instructor } from "./classes/Instructor.js";
 import { Course } from "./classes/Course.js";
 import { Student } from "./classes/Student.js";
@@ -27,7 +28,7 @@ const app = {
     main() {
         this.commandLineInput();
         this.addCourses();
-        this.enrollStudent();
+        this.addStudent();
     },
 
     addCourses() {
@@ -57,7 +58,7 @@ const app = {
         // }
     },
 
-    enrollStudent() {
+    addStudent() {
         var student_file = process.argv[3];
         var str = fs.readFileSync(student_file, 'utf8');
         const arr = str.toString().replace(/\r\n/g,'\n').split('\n');

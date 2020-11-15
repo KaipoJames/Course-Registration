@@ -13,8 +13,11 @@ export class Department {
         return this.#id;
     }
 
-    assignInstructor(instructorObj) {
+    addInstructor(instructorObj) {
         this.instructors.push(instructorObj);
+    }
+    addCourse(courseObj) {
+        this.courses.push(courseObj)
     }
 
     printDepartment() {
