@@ -46,7 +46,6 @@ const app = {
             const instructor = this.getInstructor(ins_first_name, ins_last_name);
             const course = new Course(name, level, credits, department, instructor);
             byu.addCourse(course);
-            courses.push(course);
             instructor.addClassTeaching(course);
             
         }

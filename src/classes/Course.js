@@ -1,6 +1,7 @@
 import { functions as Util } from "../functions.js";
 
 export class Course {
+
     constructor(name, level, credits, department, instructor) {
         this.course_name = name;
         this.course_level = level;
@@ -28,6 +29,13 @@ export class Course {
     getCourseInstructor() {
         return this.course_instructor;
     }
+    getEnrolledStudents() {
+        return this.enrolled_students;
+    }
+    getEnrollmentLimit() {
+        return this.enrollment_limit;
+    }
+
 
     setCourseName(new_name) {
         this.name = new_name;
@@ -35,13 +43,20 @@ export class Course {
     setCourseInstructor(instructor) {
         this.course_instructor = instructor;
     }
+    setCourseEnrollmentLimit(int) {
+        this.enrollment_limit = int;
+    }
 
     enrollStudent(studentObj) {
-        if (this.enrolled_students) {
-            this.enrolled_students.push(studentObj);
+        if (this.getEnrolledStudents().length >= this.getEnrollmentLimit()) {
+            console.log("Class is Full.")
         } else {
-            this.enrolled_students = [];
-            this.enrolled_students.push(studentObj);
+            if (this.enrolled_students) {
+                this.enrolled_students.push(studentObj);
+            } else {
+                this.enrolled_students = [];
+                this.enrolled_students.push(studentObj);
+            }
         }
     }
     removeStudent(studentObj) {
