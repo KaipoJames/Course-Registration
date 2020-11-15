@@ -20,8 +20,15 @@ export const functions = {
     },
     generateCourseID() {
         let id = "";
+        const prefix = this.returnNums(4);
+        const suffix = this.returnChar(4);
+        id = `${prefix}-${suffix}`;
+        return id;
+    },
+    generateDepartmentID() {
+        let id = "";
         const prefix = this.returnNums(1);
-        const suffix = this.returnChar(3);
+        const suffix = this.returnLets(3);
         id = `${prefix}-${suffix}`;
         return id;
     },
